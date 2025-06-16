@@ -36,3 +36,6 @@ app.use('/api/tickets', verifyToken,ticketRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+import commentRoutes from './routes/commentRoutes.js';
+app.use('/api/comments', commentRoutes);

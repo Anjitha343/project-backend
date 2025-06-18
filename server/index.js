@@ -7,9 +7,13 @@ import verifyToken from './middleware/authMiddleware.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://project-manager-fronten.netlify.app"
+];
 const app = express();
 app.use(cors({
-  origin:"http://localhost:3000",
+  origin:allowedOrigins,
   
 }));
 app.use(express.json());

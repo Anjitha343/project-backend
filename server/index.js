@@ -8,38 +8,59 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const allowedOrigins = [
-  
-  "https://project-manager-fronten.netlify.app/"
+  "http://localhost:3000",
+  "https://project-manager-fronten.netlify.app" // ✅ NO trailing slash
 ];
+
 const app = express();
+
+// ✅ Handle CORS properly
+app.use((req, res, next) => {
+  console.log("Request Origin:", req.headers.origin); // optional log
+  next();
+});
+
 app.use(cors({
-  origin:allowedOrigins,
-  
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
+
+// ✅ Handle preflight (OPTIONS)
+app.options('*', cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 app.use(express.json());
 
-// Connect to MongoDB
+// ✅ Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
-app.use('/api/auth',authRoutes);
-app.use('/api/projects',verifyToken,projectRoutes);
+// ✅ API Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/projects', verifyToken, projectRoutes);
+app.use('/api/users', verifyToken, userRoutes);
+app.use('/api/tickets', verifyToken, ticketRoutes);
+app.use('/api/comments', commentRoutes);
 
-// Test route
+// ✅ Test route
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-import userRoutes from './routes/usersRoutes.js';
-app.use('/api/users', verifyToken,userRoutes);
-
-import ticketRoutes from './routes/ticketsRoutes.js';
-app.use('/api/tickets', verifyToken,ticketRoutes);
-
-
+// ✅ Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
+// ✅ Imports moved up
+import userRoutes from './routes/usersRoutes.js';
+import ticketRoutes from './routes/ticketsRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
-app.use('/api/comments', commentRoutes);

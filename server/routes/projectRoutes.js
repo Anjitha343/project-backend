@@ -66,7 +66,7 @@ router.post("/:id/admin-add-user", verifyToken, async (req, res) => {
     if (!user) {
       const tempPassword = password || crypto.randomBytes(8).toString("hex");
 
-      const user = new User({
+      user = new User({
         name,
         email,
         password: tempPassword,
@@ -91,6 +91,7 @@ router.post("/:id/admin-add-user", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 
 

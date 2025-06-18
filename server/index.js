@@ -9,7 +9,7 @@ dotenv.config();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://project-manager-fronten.netlify.app"
+  "https://project-manager-fronten.netlify.app/"
 ];
 const app = express();
 app.use(cors({

@@ -14,12 +14,12 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = [
+/*const allowedOrigins = [
   "http://localhost:3000",
   "https://project-manager-fronten.netlify.app"
 ];
 
-const corsOptions = {
+//const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -30,10 +30,10 @@ const corsOptions = {
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
-};
+};*/
 
 // ✅ CORS middleware applies to ALL requests and handles preflight safely
-app.use(cors(corsOptions));
+app.use(cors());
 
 
 app.use(express.json());

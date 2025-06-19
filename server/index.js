@@ -18,6 +18,15 @@ const allowedOrigins = [
 
 const app = express();
 
+const originalUse = app.use.bind(app);
+
+app.use = (...args) => {
+  if (typeof args[0] === 'string' && args[0].includes('/:')) {
+    console.error("❌ CRITICAL: Invalid path passed to app.use():", args[0]);
+  }
+  return originalUse(...args);
+};
+
 // ✅ Handle CORS properly
 app.use((req, res, next) => {
   console.log("Request Origin:", req.headers.origin); // optional log
@@ -71,4 +80,4 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-// ✅ Imports moved up
+

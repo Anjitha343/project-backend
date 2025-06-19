@@ -19,8 +19,7 @@ const allowedOrigins = [
   "https://project-manager-fronten.netlify.app"
 ];
 
-// Middleware
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -28,9 +27,14 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  
-}));
-app.options('*', cors());
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+// ✅ CORS middleware applies to ALL requests and handles preflight safely
+app.use(cors(corsOptions));
+
 
 app.use(express.json());
 

@@ -60,7 +60,7 @@ router.put('/:ticketId', verifyToken, async (req, res) => {
 });
 
 // ✅ Update ticket status only
-router.put('/tickets/:id', verifyToken, updateTicketStatus);
+router.put('/status/:id', verifyToken, updateTicketStatus);
 
 // ✅ Delete ticket
 router.delete('/:id', verifyToken, deleteTicket);

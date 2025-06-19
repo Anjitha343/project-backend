@@ -39,11 +39,7 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-  router.stack.forEach((layer) => {
-  if (layer.route) {
-    console.log("📦 Registered route:", layer.route.path);
-  }
-});
+ 
 
 });
 

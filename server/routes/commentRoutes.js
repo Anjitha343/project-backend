@@ -27,11 +27,7 @@ router.get('/:ticketId', verifyToken, async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch comments' });
   }
-  router.stack.forEach((layer) => {
-  if (layer.route) {
-    console.log("📦 Registered route:", layer.route.path);
-  }
-});
+ 
 
 });
 

@@ -65,11 +65,7 @@ router.put('/status/:id', verifyToken, updateTicketStatus);
 // ✅ Delete ticket
 router.delete('/:id', verifyToken, deleteTicket);
 
-router.stack.forEach((layer) => {
-  if (layer.route) {
-    console.log("📦 Registered route:", layer.route.path);
-  }
-});
+
 
 
 export default router;

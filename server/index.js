@@ -39,11 +39,11 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/auth', verifyToken,authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/projects', verifyToken, projectRoutes);
 app.use('/api/users', verifyToken, userRoutes);
 app.use('/api/tickets', verifyToken, ticketRoutes);
-app.use('/api/comments',verifyToken, commentRoutes);
+app.use('/api/comments', commentRoutes);
 
 // Default route
 app.get('/', (req, res) => {
